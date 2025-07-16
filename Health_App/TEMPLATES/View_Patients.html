@@ -1,0 +1,330 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+<div style="background-image:  url('/media/bg.jpg'); background-repeat:no-repeat;background-size:cover;  height:820px; width:100%;">
+
+<!-- Modal for Profile button -->
+<!-- View Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="/Add_Tender/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">ID</label>
+                    <input type="text" class="form-control" name="addid" id="addid"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label  class="form-label">Patient Name</label>
+                    <input type="text" class="form-control" name="addname" id="addname"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Patient Age</label>
+                    <input type="text" class="form-control" name="addage" id="addage"  readonly>
+              </div>
+
+              <div class="col-6">
+                    <label for="inputAddress" class="form-label">Gender</label>
+                    <input type="text" class="form-control"  
+                    name="addgender" id="addgender"  >
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="addphone" name="addphone"   readonly>
+              </div>
+              <br>
+              <div class="col-md-12">
+                <label for="inputState" class="form-label">Address</label>
+                <input class="form-control" type="text" name="addadd" id="addadd" readonly >
+              </div>
+
+              <div class="col-md-12">
+                    <label for="inputZip" class="form-label">Medication</label>
+                    <textarea rows="4" class="form-control" name="addmed" id="addmed"></textarea>
+              </div>
+
+              
+
+              
+        </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal for Add Treatment Details button -->
+<!-- View Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Treatment Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="/Treatment_Details/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">RFID</label>
+                    <input type="text" class="form-control" name="rfid" value="{{searched}}"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label  class="form-label">Treatment For</label>
+                    <input type="text" class="form-control" name="T_For"   readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Treatment Duration</label>
+                    <input type="text" class="form-control" name="T_dur"   readonly>
+              </div>
+
+              <div class="col-md-12">
+                    <label for="inputAddress" class="form-label">Treatment Description</label>
+                    <textarea class="form-control" rows="4" name="T_Des"></textarea>
+              </div>
+
+               <div class="col-md-12">
+                  <input style="width:100%;" class="btn btn-secondary" type="submit" name="">
+              </div>
+              
+        </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal for Add Medical Details button -->
+<!-- View Modal -->
+<div class="modal fade" id="myModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Medical Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="/Add_Medical_Details/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">RFID</label>
+                    <input type="text" class="form-control" name="rfid" value="{{searched}}"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label  class="form-label">Blood Pressure</label>
+                    <input type="text" class="form-control" name="BP"   >
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Weight</label>
+                    <input type="text" class="form-control" name="Weight"  >
+              </div>
+
+               <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Height</label>
+                    <input type="text" class="form-control" name="Height"   >
+              </div>
+
+              <div class="col-md-12">
+                    <label for="inputAddress" class="form-label">Past Major Injury or Disease</label>
+                    <textarea class="form-control" rows="4" name="Past"></textarea>
+              </div>
+
+               <div class="col-md-12">
+                  <input style="width:100%;" class="btn btn-secondary" type="submit" name="">
+              </div>
+        </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal for Add Medicine Details button -->
+<!-- View Modal -->
+<div class="modal fade" id="myModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Medine </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="/Add_Medicine/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">RFID</label>
+                    <input type="text" class="form-control" name="rfid" value="{{searched}}"  readonly>
+              </div>
+
+              <div class="col-md-12">
+                <label class="form-label">Add Medicine</label>
+                <textarea class="form-control" name="med" id="myTextarea" ></textarea>
+              </div>
+
+               <div class="col-md-12">
+                  <input style="width:100%;" class="btn btn-secondary" type="submit" name="">
+              </div>
+        </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div class="container">
+        <div class="row" style="padding-top:50px;">
+            <form class="example" action="/View_Patients/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" placeholder="Search.." name="searched" autofocus required>
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <br>
+        <h1>My RFID id {{searched}}</h1>
+        <br>
+        {%if details%}
+        <form>
+            <table  border="5px solid #000;" class="table table-dark table-striped table-hover">
+                <thead>
+                    <td >RFID</td>
+                    <td >Name</td>
+                    <td >Profile</td>
+                    <td colspan="2" style="text-align:center;">Treatment Details</td>
+                    <td colspan="2" style="text-align:center;">Medical Details</td>
+                    <td colspan="2" style="text-align:center;">Medicine Details</td>
+                </thead>
+
+                <tbody>
+                    {%for i in details%}
+                    <tr>
+                        <td rowspan="2">{{i.RFID}}</td>
+                        <td rowspan="2">{{i.Name}}</td>
+                        <td rowspan="2"> <input type="button" class="btn btn-info "id=" {{i.id}}
+                                                            ${{i.Name}}
+                                                            ${{i.Age}}
+                                                            ${{i.Gender}}
+                                                            ${{i.Phone}}
+                                                            ${{i.Address}}
+                                                            ${{i.Medication}}"
+                             value="Profile" onclick="View(this)" style="width: 100%;"></td>
+
+
+                        <!-- Treatment Details -->
+                        
+
+                        <td style="text-align:center;"><input type="button" class="btn btn-info "
+                             value="Add" onclick="Add(this)" style="width: 100%;"></td>
+
+                        <td style="text-align:center;"><a style="width:100%;" name="price"  href="/View_Treatment_Details/{{i.id}}" class="btn btn-outline-success">View</td>
+
+
+
+                        <!-- Medical details -->
+                        <td style="text-align:center;"><input type="button" class="btn btn-info "id=""
+                             value="Add" onclick="Medical(this)" style="width: 100%;"></td>
+
+                         <td style="text-align:center;"><a style="width:100%;" name="price"  href="/View_Medical_Details/{{i.id}}" class="btn btn-outline-success">View</td>
+
+                        <!-- Medicine Detail -->
+                        <td style="text-align:center;"><input type="button" class="btn btn-info "id="{{i.id}}$"
+                             value="Add" onclick="Medicine(this)" style="width: 100%;"></td>
+
+                       <td style="text-align:center;"><a style="width:100%;" name="price"  href="/View_Medicine/{{i.id}}" class="btn btn-outline-success">View</td>
+
+                        
+
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </form>
+        {%endif%}
+    </div>
+
+
+</div>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    function View(me){
+        var id          = me.id;
+        var str         = id.split("$");
+        var ids         = str[0];
+        var Name        = str[1];
+        var Age         = str[2];
+        var Gender      = str[3];
+        var Phone       = str[4];
+        var Address     = str[5];
+        var Medication  = str[6];
+       
+
+        document.getElementById("addid").value       = ids;
+        document.getElementById("addname").value     = Name;
+        document.getElementById("addage").value      = Age;
+        document.getElementById("addgender").value   = Gender;
+        document.getElementById("addphone").value    = Phone;
+        document.getElementById("addadd").value      = Address;
+        document.getElementById("addmed").value      = Medication;
+        $('#myModal1').modal('show');
+    }
+
+
+
+    function Add(me){
+        
+        $('#myModal2').modal('show');
+    }
+
+    function Medical(me){
+        
+        $('#myModal3').modal('show');
+    }
+
+    function Medicine(me){
+        
+        $('#myModal4').modal('show');
+    }
+</script>
+    {%endblock%}

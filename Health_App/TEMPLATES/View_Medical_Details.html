@@ -1,0 +1,46 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+<div style="background-image:  url('/media/bg.jpg'); background-repeat:no-repeat;background-size:cover;  height:820px; width:100%;">
+
+<div class="container">
+    <form style="padding-top:50px;">
+       <!--  <br>
+        <a style="width:100%;" name="price"  href="/View_Patients/{{RFID}}" class="btn btn-outline-success">View</a>
+        <br> -->
+        <br>
+        <table  border="5px solid #000;" class="table table-dark table-striped table-hover">
+            <thead>
+                <td>Patient_Id</td>
+                <td>RFID</td>
+                <td>BP</td>
+                <td>Weight</td>
+                <td>Height</td>
+                <td>Past Major Injury or Disease</td>
+            </thead>
+
+            <tbody>
+                {%for i in details%}
+                <tr>
+                    <td>{{i.Patient_Id}}</td>
+                    <td>{{i.RFID}}</td>
+                    <td>{{i.BP}}</td>
+                    <td>{{i.Weight}}</td>
+                    <td>{{i.Height}}</td>
+                    <td>{{i.Past}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </form>
+</div>
+
+</div>
+    {% endblock %}

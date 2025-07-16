@@ -1,0 +1,253 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+    {%load static%}
+<div style="background-image:  url('/media/bg.jpg'); background-repeat:no-repeat;background-size:cover;  height:820px; width:100%;">
+
+<!-- Modal for view button -->
+<!-- View Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">ID</label>
+                    <input type="text" class="form-control" name="updateid" id="updateid"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label  class="form-label">Patient Name</label>
+                    <input type="text" class="form-control" name="updatename" id="updatename"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Patient Age</label>
+                    <input type="text" class="form-control" name="updateage" id="updateage"  readonly>
+              </div>
+
+              <div class="col-6">
+                    <label for="inputAddress" class="form-label">Gender</label>
+                    <input type="text" class="form-control"  
+                    name="updategender" id="updategender"  >
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="updatephone" name="updatephone"   readonly>
+              </div>
+              <br>
+              <div class="col-md-12">
+                <label for="inputState" class="form-label">Address</label>
+                <input class="form-control" type="text" name="updateadd" id="updateadd" readonly >
+              </div>
+
+              
+
+              
+        </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- View Medication  -->
+<div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">View Medication</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-6" >
+                    <label  class="form-label">ID</label>
+                    <input type="text" class="form-control" name="Updateid" id="Updateid"  readonly>
+              </div>
+            <label>Medication</label>
+             <div class="col-md-12">
+                    <textarea rows="4" class="form-control" name="Updatemed" id="Updatemed"></textarea>
+              </div>            
+        </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Medication  -->
+<div class="modal fade" id="myModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Medication</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="/Add_Medication/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="col-md-6" >
+                    <label  class="form-label">ID</label>
+                    <input type="text" class="form-control" name="Addid" id="Addid"  readonly>
+            </div>
+            <div class="col-md-6" >
+                    <label  class="form-label">RFID</label>
+                    <input type="text" class="form-control" name="Addrfid" id="Addrfid"  readonly>
+            </div>
+            <label>Add Medication</label>
+             <div class="col-md-12">
+                    <textarea rows="4" class="form-control" name="Addmed" id="Addmed"></textarea>
+              </div> 
+
+              <div class="col-md-12">
+                  <input style="width:100%;" class="btn btn-secondary" type="submit" name="">
+              </div>           
+        </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <div class="container" style="position: center; width:50%;">
+        <div class="row" style="padding-top:50px;">
+            <form class="example" action="/Medical_View_Patient/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="text" placeholder="Search.." name="searched" autofocus required>
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <br>
+        {%if details%}
+        <form>
+            <table  border="5px solid #000;" class="table table-dark table-striped table-hover">
+                <thead>
+                    <td >RFID</td>
+                    <td >Name</td>
+                    <td >Profile</td>
+                    <td colspan="2" style="text-align:center;">Action</td>
+                </thead>
+
+                <tbody>
+                    {%for i in details%}
+                    <tr>
+                        <td >{{i.RFID}}</td>
+                        <td >{{i.Name}}</td>
+                        <td > <input type="button" class="btn btn-info "id=" {{i.id}}
+                                                            ${{i.Name}}
+                                                            ${{i.Age}}
+                                                            ${{i.Gender}}
+                                                            ${{i.Phone}}
+                                                            ${{i.Address}}
+                                                            "
+                             value="Profile" onclick="View(this)" style="width: 100%;">
+                         </td>
+                        <td><input type="button" class="btn btn-info "id="{{i.id}}${{i.Medication}}"
+                             value="Medication" onclick="Med(this)" style="width: 100%;">
+                         </td>
+                        <td><input type="button" class="btn btn-info "id="{{i.id}}${{i.Medication}}${{i.RFID}}"
+                             value="Add Medication" onclick="AddMed(this)" style="width: 100%;"></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </form>
+        {%endif%}
+    </div>
+
+
+</div>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    function View(me){
+        var id          = me.id;
+        var str         = id.split("$");
+        var ids         = str[0];
+        var Name        = str[1];
+        var Age         = str[2];
+        var Gender      = str[3];
+        var Phone       = str[4];
+        var Address     = str[5];
+        
+       
+
+        document.getElementById("updateid").value       = ids;
+        document.getElementById("updatename").value     = Name;
+        document.getElementById("updateage").value      = Age;
+        document.getElementById("updategender").value   = Gender;
+        document.getElementById("updatephone").value    = Phone;
+        document.getElementById("updateadd").value      = Address;
+       
+        $('#myModal1').modal('show');
+    }
+
+     function Med(me){
+        var id          = me.id;
+        var str         = id.split("$");
+        var ids         = str[0];
+        var Medication  = str[1];
+        
+       
+        document.getElementById("Updateid").value       = ids;
+        document.getElementById("Updatemed").value      = Medication;
+       
+        $('#myModal2').modal('show');
+    }
+
+     function AddMed(me){
+        var id          = me.id;
+        var str         = id.split("$");
+        var ids         = str[0];
+        var Medication  = str[1];
+        var RFID  = str[2];
+        
+       
+        document.getElementById("Addid").value       = ids;
+        document.getElementById("Addrfid").value       = RFID;
+       
+        $('#myModal3').modal('show');
+    }
+
+</script>
+    {%endblock%}
+
+
+
+<!-- <form method="POST" action="" enctype="multipart/form-data">
+            <label>Medication</label>
+             <div class="col-md-12">
+                    <textarea rows="4" class="form-control" name="updatemed" id="updatemed"></textarea>
+              </div>         
+          </form> -->

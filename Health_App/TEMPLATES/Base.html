@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+
+	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+   	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+ 
+
+ <style>
+   #neubar {
+  background: #fae8d2;
+  box-shadow: 4px 6px 12px rgba(0,0,0,0.4)
+}
+ 
+.nav-item .active {
+  border-radius: 6px;
+  background: linear-gradient(145deg, #ffe7ca, #f5d7b2);
+  box-shadow:  4px 4px 8px #ddc1a0,
+               -4px -4px 8px #f7e5cc;
+}
+#neubar .dropdown-menu a:hover {
+  color: #454545
+}
+#neubar .nav-item {
+  margin : auto 4px;
+}
+#neubar a {
+ 
+  padding-left:12px;
+  padding-right:12px;
+}
+#neubar .dropdown-menu {
+  background : #545454
+}
+a.navbar-brand {
+  color: #454545
+}
+
+
+ </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-light" id="neubar">
+  <div class="container">
+    <a class="navbar-brand" href="#"><img src="/media/logo.png" height="60" />Health Card</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+ 
+    <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto ">
+        <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2 " aria-current="page" href="{% url 'Home' %}"  >Home </a>
+          
+        </li>
+          {% if request.session.type_id == 'User'%}   
+        <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'Patient_Change_Password'%}">Change Password</a>
+        </li>
+          <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'Patient_Profile'%}">Profile</a>
+        </li>
+          
+        {%elif  request.session.type_id == 'Doctor' %}
+         <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'Doctor_Change_Password'%}">Change Password</a>
+        </li>
+        <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'Doctor_Profile'%}">Profile</a>
+        </li>
+        <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'View_Patients'%}">View Patients</a>
+        </li>
+        {%elif request.session.type_id == 'Medical' %}
+         <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'Medical_Store_Change_Password'%}">Change Password</a>
+        </li>
+        <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'Medical_View_Patient'%}">View Patients</a>
+        </li>
+        <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="#">Profile</a>
+        </li>
+         {%elif request.session.type_id == 'Admin' %}
+         <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'Manage_Patients'%}">Manage Patients</a>
+        </li>
+        <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'View_Doctor'%}">View Doctor</a>
+        </li>
+        <li class="nav-item" style="padding-top:10px;">
+          <a class="nav-link mx-2" href="{% url 'View_Medical_Store'%}">View Medical</a>
+        </li>
+        {%endif%}
+
+        {%if  request.session.login == 'Yes'  %} 
+          
+         <li class="nav-item"  style="padding-top:10px;">
+          <a class="nav-link mx-2" href="#">Hi, {{request.session.UserType}}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-2 active" href="{% url 'Logout'%}">Logout</a>
+        </li>
+        {%else%}
+          <li class="nav-item dropdown" style="padding-top:10px;">
+          <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Login
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" style="color: white;" href="{% url 'Admin_Login'%}">Admin</a></li>
+            <li><a class="dropdown-item" style="color: white;" href="{% url 'Doctor_Login'%}">Doctor</a></li>
+            <li><a class="dropdown-item" style="color: white;" href="{% url 'Medical_Store_Login'%}">Medical Store</a></li>
+            <li><a class="dropdown-item" style="color: white;" href="{% url 'Patient_Login'%}">Patient</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    {%endif%}
+  </div>
+</nav>
+</body>
+
+  <footer style="padding: 10px 20px;background:#fae8d2;color:black;height:44px;position:fixed;bottom:0; width: 100%;"-->
+<p style="font-size: small; text-align: right;">Company ©2022. All rights reserved.</p>
+  </footer>
+
+{% block content %}
+
+{% endblock %}
+</html>

@@ -1,0 +1,254 @@
+{% extends 'Base.html'%}
+    {% block content%}
+    {% if messages %}
+        {% for message in messages %}
+         {% if message.tags %}  <script>alert("{{ message }}")</script> {% endif %}
+
+        {% endfor %}
+        {% endif %}
+    {%load static%}
+<style>
+    .box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 50px;
+    }
+</style>
+
+<div style="background-image:  url('/media/bg.jpg'); background-repeat:no-repeat;background-size:cover;  height:820px; width:100%;">
+
+<!-- Modal for view button -->
+<!-- View Modal -->
+<div class="modal fade" id="myModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="/Add_Tender/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">ID</label>
+                    <input type="text" class="form-control" name="updateid" id="updateid"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label  class="form-label">Patient Name</label>
+                    <input type="text" class="form-control" name="updatename" id="updatename"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Patient Age</label>
+                    <input type="text" class="form-control" name="updateage" id="updateage"  readonly>
+              </div>
+
+              <div class="col-6">
+                    <label for="inputAddress" class="form-label">Gender</label>
+                    <input type="text" class="form-control"  
+                    name="updategender" id="updategender"  >
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="updatephone" name="updatephone"   readonly>
+              </div>
+              <br>
+              <div class="col-md-12">
+                <label for="inputState" class="form-label">Address</label>
+                <input class="form-control" type="text" name="updateadd" id="updateadd" readonly >
+              </div>
+
+              <div class="col-md-12">
+                    <label for="inputZip" class="form-label">Medication</label>
+                    <textarea rows="4" class="form-control" name="updatemed" id="updatemed"></textarea>
+              </div>
+
+              
+        </form>
+    </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Modal for update button -->
+<!-- Update Modal -->
+<div class="modal fade" id="myModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+             <div class="container">
+        <form class="row g-3" method="POST" action="/Update_Patient/" enctype="multipart/form-data">
+            {% csrf_token %}
+              <div class="col-md-6">
+                    <label  class="form-label">ID</label>
+                    <input type="text" class="form-control" name="viewid" id="viewid"  readonly>
+              </div>
+
+              <div class="col-md-6">
+                    <label  class="form-label">Patient Name</label>
+                    <input type="text" class="form-control" name="viewname" id="viewname"  required>
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputPassword4" class="form-label">Patient Age</label>
+                    <input type="text" class="form-control" name="viewage" id="viewage"  required>
+              </div>
+
+              <div class="col-6">
+                    <label for="inputAddress" class="form-label">Gender</label>
+                    <input type="text" class="form-control"  
+                    name="viewgender" id="viewgender"  >
+              </div>
+
+              <div class="col-md-6">
+                    <label for="inputCity" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="viewphone" name="viewphone"  required >
+              </div>
+              <br>
+              <div class="col-md-12">
+                <label for="inputState" class="form-label">Address</label>
+                <input class="form-control" type="text" name="viewadd" id="viewadd" required >
+              </div>
+
+              <div class="col-md-12">
+                    <label for="inputZip" class="form-label">Medication</label>
+                    <textarea rows="4" class="form-control" name="viewmed" id="viewmed" required></textarea>
+              </div>
+
+              <div class="col-md-12">
+                  <input style="width:100%;" class="btn btn-secondary" type="submit" name="">
+              </div>
+        </form>
+    </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+    <div class="box">
+        <div class="container">
+            <form>
+            <div class="row" >
+                <div class="col-md-12" style="display:flex;justify-content: center;align-items:center;padding-right: 120px;">
+                    <a class="btn btn-secondary" href="/Patient_Registeration/">Add Patient</a>
+                </div>
+            </div>
+            <br>
+            <table style="width:50%;" border="5px solid #000;" class="table table-dark table-striped table-hover">
+                <thead>
+                    <td>Patients ID</td>
+                    <td>Patients Name</td>
+                    <!-- /Employee_Details2/{{i.id}} -->
+                    <td colspan="3" style="text-align:center">Operations</td>
+                </thead>
+                <tbody>
+                    {%for i in details%}
+                    <tr>
+                        <td>{{i.id}}</td>
+                        <td>{{i.Name}}</td>
+                        <td>
+                            <input type="button" class="btn btn-info "id=" {{i.id}}
+                                                            ${{i.Name}}
+                                                            ${{i.Age}}
+                                                            ${{i.Gender}}
+                                                            ${{i.Phone}}
+                                                            ${{i.Address}}
+                                                            ${{i.Medication}}"
+                             value="View" onclick="View(this)" style="width: 100%;">
+                        </td>
+                        <td>
+                            <input type="button" class="btn btn-secondary "id=" {{i.id}}
+                                                            ${{i.Name}}
+                                                            ${{i.Age}}
+                                                            ${{i.Gender}}
+                                                            ${{i.Phone}}
+                                                            ${{i.Address}}
+                                                            ${{i.Medication}}"
+                             value="Update" onclick="Update(this)" style="width: 100%;">
+                        </td>
+                        <td><a class="button btn btn-danger" href="/Delete_Patient/{{i.id}}">Delete</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table>
+        </form>
+    </div>
+        </div>
+</div>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+    function View(me){
+        var id          = me.id;
+        var str         = id.split("$");
+        var ids         = str[0];
+        var Name        = str[1];
+        var Age         = str[2];
+        var Gender      = str[3];
+        var Phone       = str[4];
+        var Address     = str[5];
+        var Medication  = str[6];
+       
+
+        document.getElementById("updateid").value       = ids;
+        document.getElementById("updatename").value     = Name;
+        document.getElementById("updateage").value      = Age;
+        document.getElementById("updategender").value   = Gender;
+        document.getElementById("updatephone").value    = Phone;
+        document.getElementById("updateadd").value      = Address;
+        document.getElementById("updatemed").value      = Medication;
+        $('#myModal1').modal('show');
+    }
+
+
+    function Update(me){
+        var id          = me.id;
+        var str         = id.split("$");
+        var ids         = str[0];
+        var Name        = str[1];
+        var Age         = str[2];
+        var Gender      = str[3];
+        var Phone       = str[4];
+        var Address     = str[5];
+        var Medication  = str[6];
+       
+
+        document.getElementById("viewid").value       = ids;
+        document.getElementById("viewname").value     = Name;
+        document.getElementById("viewage").value      = Age;
+        document.getElementById("viewgender").value   = Gender;
+        document.getElementById("viewphone").value    = Phone;
+        document.getElementById("viewadd").value      = Address;
+        document.getElementById("viewmed").value      = Medication;
+        $('#myModal2').modal('show');
+    }
+
+
+
+
+
+
+  
+
+    </script>
+    
+ {% endblock %}
