@@ -42,29 +42,32 @@ This system allows healthcare providers to:
 - MFRC522 Python library (`pip install mfrc522` or use source)
 
 
-##🛡️ Security Notes
+# 🛡️ Security Notes
+
 Ensure patient data is encrypted before writing to RFID cards.
 
 Limit access to RFID writing endpoints (both PHP and Django).
 
 Use HTTPS for deployment.
 
-##🧪 Future Improvements
+# 🧪 Future Improvements
+
 Integration with cloud database for distributed access.
 
 Face recognition alongside RFID for dual authentication.
 
 Mobile app integration for emergency access.
 
-##.
+## 🙋‍♂️ Author
 
-🙋‍♂️ Author
 Varshil Padsala
+
 B.Tech (ADIT), Semester 6
+
 📧 [padsalavarshil94@gmail.com]
+
 🔗 [www.linkedin.com/in/varshil-padsala]
 
-##]
+## 📄 License
 
-📄 License
 This project is licensed under the MIT License - see the LICENSE file for details.
